@@ -3,7 +3,14 @@ import sqlite3
 
 app = Flask(__name__)
 
-DATABASE = 'database.db'
+@app.before_request
+def initialize_database():
+    init_db()
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, 'database.db')
 
 
 def get_db():
